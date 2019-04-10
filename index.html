@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+    <title>Charts</title>
+</head>
+<body>
+    <style>
+        #start {
+            margin: 0 auto;
+            width: 50%;
+        }
+        .input-container{
+            text-align: center;
+            margin-top: 56px;
+        }
+    </style>
+    <canvas id="myChart"></canvas>
+    <div class="input-container">
+        <input type="range" id="start" name="volume" min="0" max="680" value="0"/>
+        <label for="volume">Volume</label>
+    </div>
+
+    <script>
+
+        var slider = document.getElementById('start');
+        var maxValue = slider.max;
+        var maxValue = slider.max;
+        console.log("Max Value is "+maxValue)
+        var value = slider.value;
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+
+            var data = {
+                datasets: [{
+                    data: [value, maxValue - value],
+                    backgroundColor: [
+                        "#FF6384",
+                        "#AAAAAA"
+                    ],
+                }],
+                labels: [
+                    'Red'
+                ],
+                backgroundColor: ['red']
+            };
+
+            var myDoughnutChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    circumference: Math.PI+1.4,
+                    rotation: -Math.PI-0.7,
+                    cutoutPercentage: 80
+                }
+            });
+
+            slider.oninput = function(){
+                console.log("Slider value is " + this.value);
+                console.log("Max Value is " + maxValue);
+                data.datasets[0].data[0] = this.value;
+                data.datasets[0].data[1] = (maxValue - this.value);
+                myDoughnutChart.update();
+            }
+
+    </script>
+
+</body>
+</html>
