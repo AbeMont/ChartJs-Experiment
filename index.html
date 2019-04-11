@@ -17,8 +17,29 @@
             text-align: center;
             margin-top: 56px;
         }
+        .canvas-container {
+            position: relative;
+        }
+        #min-num{
+            position: absolute;
+            left: 33%;
+            font-weight: bold;
+        }
+
+        #max-num {
+            position: absolute;
+            right:33%;
+            font-weight: bold;
+        }
+
     </style>
-    <canvas id="myChart"></canvas>
+
+    <div class="canvas-container">
+        <canvas id="myChart"></canvas>
+        <div id="min-num"></div>
+        <div id="max-num"></div>
+    </div>
+
     <div class="input-container">
         <input type="range" id="start" name="volume" min="0" max="680" value="0"/>
         <label for="volume">Volume</label>
@@ -27,8 +48,17 @@
     <script>
 
         var slider = document.getElementById('start');
+
+        // Min and Max values from slider
+        var minValue = slider.min;
         var maxValue = slider.max;
-        var maxValue = slider.max;
+
+        console.log(minValue,maxValue);
+
+        // Lets dynamically add these to our counters
+        document.getElementById("min-num").textContent = minValue;
+        document.getElementById("max-num").textContent = maxValue;
+   
         console.log("Max Value is "+maxValue)
         var value = slider.value;
 
@@ -54,7 +84,8 @@
                 options: {
                     circumference: Math.PI+1.4,
                     rotation: -Math.PI-0.7,
-                    cutoutPercentage: 80
+                    cutoutPercentage: 80,
+
                 }
             });
 
