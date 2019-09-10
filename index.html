@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>Charts</title>
 </head>
 <body>
@@ -43,9 +44,19 @@
     <div class="input-container">
         <input type="range" id="start" name="volume" min="0" max="680" value="0"/>
         <label for="volume">Volume</label>
+        <div id="parent">
+            <span class="child">Child</span>
+        </div>
     </div>
 
     <script>
+
+        var parent = document.getElementById('parent');
+        var child = parent.children;
+        console.log(parent)
+        console.log(child)
+
+        document.addEventListener("DOMContentLoaded", function(e) {console.log("Loaded")})
 
         var slider = document.getElementById('start');
 
@@ -97,6 +108,29 @@
                 myDoughnutChart.update();
             }
 
+    </script>
+
+    <b>Name</b>
+    
+    <input type="text" id="name" />
+    <br />
+    <b>Salary</b>
+    
+    <input type="text" id="salary" class="decimal" />
+
+    <script>
+        $('.decimal').keypress(function (e) {
+            var character = String.fromCharCode(e.keyCode)
+            var newValue = this.value + character;
+            if (isNaN(newValue) || hasDecimalPlace(newValue, 3)) {
+                e.preventDefault();
+                return false;
+            }
+            function hasDecimalPlace(value, x) {
+                var pointIndex = value.indexOf('.');
+                return pointIndex >= 0 && pointIndex < value.length - x;
+            }
+        });
     </script>
 
 </body>
